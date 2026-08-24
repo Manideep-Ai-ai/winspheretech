@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { ArrowRight, Check } from "lucide-react";
 import { industries } from "@/lib/content";
 import { ScrollReveal } from "@/components/ScrollReveal";
 
 export function Industries() {
   const [active, setActive] = useState(0);
+  const industry = industries[active];
 
   return (
     <section id="industries" className="fluid-px fluid-py">
@@ -17,9 +19,9 @@ export function Industries() {
         </ScrollReveal>
 
         <div className="fluid-section-mt grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-          {industries.map((industry, i) => (
+          {industries.map((ind, i) => (
             <button
-              key={industry.name}
+              key={ind.name}
               onMouseEnter={() => setActive(i)}
               onFocus={() => setActive(i)}
               onClick={() => setActive(i)}
@@ -29,7 +31,7 @@ export function Industries() {
                   : "border-border text-text-secondary hover:border-primary/30 hover:text-text"
               }`}
             >
-              {industry.name}
+              {ind.name}
             </button>
           ))}
         </div>
@@ -41,8 +43,23 @@ export function Industries() {
           transition={{ duration: 0.4 }}
           className="glass mt-8 rounded-2xl p-8"
         >
-          <h3 className="text-xl font-bold">{industries[active].name}</h3>
-          <p className="mt-3 max-w-2xl text-text-secondary">{industries[active].description}</p>
+          <h3 className="text-xl font-bold">{industry.name}</h3>
+          <p className="mt-3 max-w-2xl text-text-secondary">{industry.description}</p>
+          <ul className="mt-5 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-x-8 sm:gap-y-2">
+            {industry.capabilities.map((cap) => (
+              <li key={cap} className="flex items-center gap-2 text-sm text-text-secondary">
+                <Check size={14} className="shrink-0 text-primary" />
+                {cap}
+              </li>
+            ))}
+          </ul>
+          <a
+            href="#contact"
+            className="group mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-primary"
+          >
+            Explore {industry.name} Solutions
+            <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
+          </a>
         </motion.div>
       </div>
     </section>

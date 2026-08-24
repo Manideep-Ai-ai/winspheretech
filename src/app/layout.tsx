@@ -14,15 +14,49 @@ const spaceGrotesk = Space_Grotesk({
   weight: ["500", "600", "700"],
 });
 
+const siteUrl = "https://www.winspheretech.com";
+const title = "WinSphere Technologies | AI, Cloud, Software & IT Staffing";
+const description =
+  "WinSphere Technologies delivers AI, cloud, software development, data, digital transformation, and technology staffing solutions.";
+
 export const metadata: Metadata = {
-  title: "WinSphere Technologies | AI, Cloud & Digital Transformation",
-  description:
-    "WinSphere Technologies delivers AI, cloud, software engineering, big data, IT staffing, and digital growth solutions for enterprises moving fast.",
+  metadataBase: new URL(siteUrl),
+  title,
+  description,
+  alternates: { canonical: "/" },
+  openGraph: {
+    title,
+    description,
+    url: siteUrl,
+    siteName: "WinSphere Technologies",
+    type: "website",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+  },
+};
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "WinSphere Technologies",
+  url: siteUrl,
+  logo: `${siteUrl}/logo.jpeg`,
+  sameAs: [],
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} font-sans h-full antialiased`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+      </head>
       <body className="min-h-full flex flex-col bg-bg text-text">
         {children}
       </body>

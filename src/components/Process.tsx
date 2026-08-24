@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { processSteps } from "@/lib/content";
@@ -43,8 +44,9 @@ export function Process() {
           <h2 className="mt-3 text-4xl font-extrabold sm:text-5xl">From discovery to sustained support</h2>
         </ScrollReveal>
 
-        <div ref={sectionRef} className="relative fluid-section-mt overflow-x-auto pb-4">
-          <div className="relative min-w-[900px] px-2">
+        {/* Desktop: horizontal timeline with a scroll-drawn connecting line. */}
+        <div ref={sectionRef} className="fluid-section-mt hidden lg:block">
+          <div className="relative">
             <div className="absolute left-0 top-6 h-px w-full bg-border" />
             <div ref={lineRef} className="absolute left-0 top-6 h-px w-full bg-gradient-to-r from-primary to-secondary" />
 
@@ -59,6 +61,29 @@ export function Process() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+
+        {/* Mobile/tablet: vertical timeline. */}
+        <div className="fluid-section-mt relative pl-8 lg:hidden">
+          <div className="absolute left-[15px] top-2 h-[calc(100%-16px)] w-px bg-gradient-to-b from-primary via-secondary to-transparent" />
+          <div className="flex flex-col gap-8">
+            {processSteps.map((step, i) => (
+              <motion.div
+                key={step.step}
+                initial={{ opacity: 0, x: 16 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.4, delay: i * 0.06 }}
+                className="relative"
+              >
+                <span className="absolute -left-8 top-0 flex h-8 w-8 items-center justify-center rounded-full border border-primary/40 bg-bg text-xs font-bold text-primary">
+                  {step.step}
+                </span>
+                <h3 className="text-base font-bold">{step.title}</h3>
+                <p className="mt-1.5 text-sm text-text-secondary">{step.description}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </div>

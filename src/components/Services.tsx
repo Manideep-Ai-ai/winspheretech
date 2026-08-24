@@ -20,7 +20,10 @@ export function Services() {
       <div className="mx-auto max-w-7xl">
         <ScrollReveal className="max-w-2xl">
           <p className="text-sm font-semibold uppercase tracking-widest text-primary">What We Do</p>
-          <h2 className="mt-3 text-4xl font-extrabold sm:text-5xl">Services engineered for scale</h2>
+          <h2 className="mt-3 text-4xl font-extrabold sm:text-5xl">End-to-End Technology Solutions</h2>
+          <p className="mt-4 text-lg text-text-secondary">
+            Technology solutions designed to help organizations build, modernize, scale, and grow.
+          </p>
         </ScrollReveal>
 
         <div className="fluid-section-mt grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -35,13 +38,16 @@ export function Services() {
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-secondary/0 opacity-0 transition-opacity duration-500 group-hover:from-primary/5 group-hover:to-secondary/5 group-hover:opacity-100" />
                   <div className="relative">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-primary/30 bg-primary/10 text-primary">
-                      <Icon size={22} />
+                    <div className="flex items-center justify-between">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-primary/30 bg-primary/10 text-primary">
+                        <Icon size={22} />
+                      </div>
+                      <span className="font-heading text-sm text-muted">{service.index}</span>
                     </div>
                     <h3 className="mt-6 text-xl font-bold">{service.title}</h3>
                     <p className="mt-3 text-sm leading-relaxed text-text-secondary">{service.description}</p>
                     <div className="mt-6 flex items-center gap-1 text-sm font-semibold text-primary opacity-0 transition-all group-hover:translate-x-1 group-hover:opacity-100">
-                      Learn more <ArrowUpRight size={16} />
+                      Explore <ArrowUpRight size={16} />
                     </div>
                   </div>
                 </motion.div>

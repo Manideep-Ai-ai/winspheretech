@@ -1,69 +1,93 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import dynamic from "next/dynamic";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+
+const Globe = dynamic(() => import("@/components/ui/globe").then((m) => m.Globe), { ssr: false });
 
 const lines = ["Technology.", "Talent.", "Digital Growth."];
 
 export function Hero() {
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const globeOpacity = useTransform(scrollYProgress, [0, 0.85, 1], [1, 0.4, 0]);
+  const globeY = useTransform(scrollYProgress, [0, 1], [0, 80]);
+
   return (
-    <section id="home" className="relative z-10 flex min-h-screen items-center overflow-hidden pt-24">
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-1/4 top-1/3 h-72 w-72 rounded-full bg-secondary/10 blur-[120px]" />
-        <div className="absolute right-1/4 top-1/2 h-72 w-72 rounded-full bg-primary/10 blur-[120px]" />
-      </div>
+    <section
+      id="home"
+      ref={heroRef}
+      className="relative isolate flex min-h-[90vh] flex-col justify-center overflow-hidden bg-navy-1 pt-24 pb-40 text-navy-text"
+    >
+      {/* Signature hero element: the globe emerges from the bottom, cropped
+          by the viewport, and belongs only to this section — it fades out
+          on its own scroll progress rather than roaming the whole page. */}
+      <motion.div
+        aria-hidden
+        style={{ opacity: globeOpacity, y: globeY }}
+        className="pointer-events-none absolute bottom-[-38%] left-1/2 z-0 w-[560px] max-w-[140vw] -translate-x-1/2 sm:w-[720px] lg:w-[860px]"
+      >
+        <Globe />
+      </motion.div>
 
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-x-12 fluid-gap-y fluid-px lg:grid-cols-5">
-        {/* Left column is reserved space; the globe itself is a fixed,
-            scroll-reactive backdrop hugging the left edge (GlobeBackdrop). */}
-        <div className="hidden lg:col-span-2 lg:block" aria-hidden />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-navy-1 via-transparent to-navy-1/60" />
 
-        <div className="lg:col-span-3">
-          <h1 className="text-6xl leading-[1.05] tracking-tight sm:text-7xl">
-            {lines.map((line, i) => (
-              <motion.span
-                key={line}
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: i * 0.15, ease: [0.16, 1, 0.3, 1] }}
-                className={`block ${i === 2 ? "text-gradient" : "text-text"}`}
-              >
-                {line}
-              </motion.span>
-            ))}
-          </h1>
+      <div className="relative z-10 mx-auto w-full max-w-4xl fluid-px text-center">
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-xs font-semibold uppercase tracking-[0.25em] text-teal"
+        >
+          Technology &middot; Talent &middot; Digital Transformation
+        </motion.p>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="mt-6 max-w-md text-lg text-text-secondary"
-          >
-            WinSphere Technologies engineers AI, cloud, and software platforms
-            for enterprises that measure growth in outcomes, not output.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="mt-10 flex flex-wrap gap-4"
-          >
-            <a
-              href="#contact"
-              className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 font-semibold text-bg shadow-[0_10px_28px_-10px_rgba(10,41,71,0.55)] transition-all hover:-translate-y-0.5 hover:shadow-[0_16px_36px_-10px_rgba(10,41,71,0.65)]"
+        <h1 className="mt-5 text-6xl leading-[1.05] tracking-tight sm:text-7xl">
+          {lines.map((line, i) => (
+            <motion.span
+              key={line}
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: i * 0.15, ease: [0.16, 1, 0.3, 1] }}
+              className={`block ${i === 2 ? "text-gradient" : "text-navy-text"}`}
             >
-              Talk to Our Experts
-              <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
-            </a>
-            <a
-              href="#services"
-              className="rounded-full border border-border px-7 py-3.5 font-semibold text-text transition-all hover:border-primary/50 hover:bg-black/5"
-            >
-              Explore Services
-            </a>
-          </motion.div>
-        </div>
+              {line}
+            </motion.span>
+          ))}
+        </h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="mx-auto mt-6 max-w-xl text-lg text-navy-text-secondary"
+        >
+          WinSphere Technologies helps businesses accelerate growth through AI,
+          cloud, software engineering, data, and technology talent.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="mt-10 flex flex-wrap justify-center gap-4"
+        >
+          <a
+            href="#contact"
+            className="group inline-flex items-center gap-2 rounded-full bg-teal px-7 py-3.5 font-semibold text-navy-1 shadow-[0_10px_28px_-10px_rgba(25,199,163,0.6)] transition-all hover:-translate-y-0.5 hover:shadow-[0_16px_36px_-10px_rgba(25,199,163,0.7)]"
+          >
+            Talk to Our Experts
+            <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+          </a>
+          <a
+            href="#services"
+            className="rounded-full border border-navy-border px-7 py-3.5 font-semibold text-navy-text transition-all hover:border-teal/50 hover:bg-white/5"
+          >
+            Explore Services
+          </a>
+        </motion.div>
       </div>
     </section>
   );

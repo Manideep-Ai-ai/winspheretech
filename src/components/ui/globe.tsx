@@ -10,13 +10,14 @@ import {
 } from "d3-geo";
 import { cn } from "@/lib/utils";
 
-// Matte cream + gray + blue globe: a real dotted world map (not an abstract
-// sphere) rendered via orthographic projection. Ocean is transparent (the
-// cream page shows through); land is a scatter of matte-blue dots.
+// Real dotted world map (not an abstract sphere) rendered via orthographic
+// projection, for the dark-navy hero. Ocean is transparent (the navy
+// background shows through); land is a scatter of teal dots with a soft
+// teal atmospheric glow.
 const LAND_URL = "/land-110m.json";
-const DOT_COLOR = "#2c4870";
-const OUTLINE_COLOR = "rgba(44,72,112,0.4)";
-const GRATICULE_COLOR = "rgba(44,72,112,0.1)";
+const DOT_COLOR = "#19c7a3";
+const OUTLINE_COLOR = "rgba(25,199,163,0.45)";
+const GRATICULE_COLOR = "rgba(247,249,251,0.08)";
 
 interface LandFeature {
   type: "Feature";
@@ -127,10 +128,13 @@ export function Globe({ className }: GlobeProps) {
     };
     applySize();
 
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
     let land: LandCollection | null = null;
     let dots: [number, number][] = [];
     let rotation: [number, number] = [0, -8];
-    let autoRotate = true;
+    let autoRotate = !reduceMotion;
+    let visible = true;
     let raf = 0;
     let lastT = performance.now();
 
@@ -139,7 +143,7 @@ export function Globe({ className }: GlobeProps) {
 
       ctx.beginPath();
       path({ type: "Sphere" });
-      ctx.fillStyle = "rgba(44,72,112,0.03)";
+      ctx.fillStyle = "rgba(25,199,163,0.04)";
       ctx.fill();
 
       ctx.beginPath();
@@ -176,13 +180,20 @@ export function Globe({ className }: GlobeProps) {
     const tick = (t: number) => {
       const dt = t - lastT;
       lastT = t;
-      if (autoRotate) {
-        rotation = [rotation[0] + dt * 0.012, rotation[1]];
-        projection.rotate(rotation);
+      if (visible) {
+        if (autoRotate) {
+          rotation = [rotation[0] + dt * 0.012, rotation[1]];
+          projection.rotate(rotation);
+        }
+        render();
       }
-      render();
       raf = requestAnimationFrame(tick);
     };
+
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+    });
+    observer.observe(container);
 
     let dragging = false;
     let startX = 0;
@@ -210,7 +221,7 @@ export function Globe({ className }: GlobeProps) {
       dragging = false;
       canvas.style.cursor = "grab";
       canvas.releasePointerCapture(e.pointerId);
-      window.setTimeout(() => (autoRotate = true), 1200);
+      if (!reduceMotion) window.setTimeout(() => (autoRotate = true), 1200);
     };
 
     canvas.addEventListener("pointerdown", onPointerDown);
@@ -232,6 +243,7 @@ export function Globe({ className }: GlobeProps) {
 
     return () => {
       cancelAnimationFrame(raf);
+      observer.disconnect();
       window.removeEventListener("resize", onResize);
       canvas.removeEventListener("pointerdown", onPointerDown);
       canvas.removeEventListener("pointermove", onPointerMove);
@@ -246,16 +258,11 @@ export function Globe({ className }: GlobeProps) {
     >
       <div
         aria-hidden
-        className="absolute inset-[6%] rounded-full blur-2xl"
+        className="absolute inset-[-8%] rounded-full blur-3xl"
         style={{
           background:
-            "radial-gradient(closest-side, transparent 58%, rgba(44,72,112,0.14) 74%, transparent 88%)",
+            "radial-gradient(closest-side, rgba(25,199,163,0.22), rgba(22,137,216,0.1) 65%, transparent 85%)",
         }}
-      />
-      <div
-        aria-hidden
-        className="absolute inset-[10%] rounded-full"
-        style={{ boxShadow: "0 30px 60px -20px rgba(23,24,28,0.22)" }}
       />
       <canvas
         ref={canvasRef}

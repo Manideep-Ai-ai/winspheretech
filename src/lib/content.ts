@@ -5,13 +5,17 @@ export interface NavLink {
 
 export const navLinks: NavLink[] = [
   { label: "Home", href: "#home" },
+  { label: "About", href: "#why-us" },
   { label: "Services", href: "#services" },
   { label: "Industries", href: "#industries" },
   { label: "Careers", href: "#careers" },
-  { label: "About Us", href: "#why-us" },
   { label: "Contact", href: "#contact" },
 ];
 
+// PLACEHOLDER — explicitly authorized as temporary stand-ins by the client
+// until real figures are supplied. Swap `value` for verified numbers before
+// this site is treated as launch-ready; nothing else about this block needs
+// to change when that data lands.
 export interface Stat {
   label: string;
   value: number;
@@ -19,54 +23,55 @@ export interface Stat {
 }
 
 export const stats: Stat[] = [
-  { label: "Happy Clients", value: 150, suffix: "+" },
-  { label: "Experts On Team", value: 60, suffix: "+" },
-  { label: "Projects Delivered", value: 300, suffix: "+" },
-  { label: "Years of Excellence", value: 8, suffix: "+" },
-  { label: "Countries Served", value: 12, suffix: "+" },
+  { label: "Happy Clients", value: 50, suffix: "+" },
+  { label: "Experts On Team", value: 25, suffix: "+" },
+  { label: "Projects Delivered", value: 100, suffix: "+" },
+  { label: "Years of Excellence", value: 5, suffix: "+" },
+  { label: "Countries Served", value: 8, suffix: "+" },
 ];
 
 export interface Service {
+  index: string;
   title: string;
   description: string;
-  icon: "ai" | "cloud" | "code" | "staffing" | "data" | "growth";
+  icon: "ai" | "cloud" | "data" | "code" | "staffing" | "growth";
 }
 
 export const services: Service[] = [
   {
+    index: "01",
     title: "Artificial Intelligence",
-    description:
-      "Intelligent automation and data-driven insights engineered to keep your business ahead in a digital-first world.",
+    description: "AI/ML, generative AI, and intelligent automation built into real business workflows.",
     icon: "ai",
   },
   {
-    title: "Business Solutions",
-    description:
-      "Results-driven services that streamline operations and raise efficiency, from strategy through execution.",
+    index: "02",
+    title: "Cloud & DevOps",
+    description: "Cloud modernization, infrastructure, and deployment pipelines built to scale.",
     icon: "cloud",
   },
   {
-    title: "Web Development",
-    description:
-      "Responsive, user-friendly websites built on modern stacks and creative approaches, from prototype to production.",
-    icon: "code",
-  },
-  {
-    title: "IT Staffing",
-    description:
-      "Connecting organizations with vetted, skilled technology professionals for temporary, contract, or permanent roles.",
-    icon: "staffing",
-  },
-  {
-    title: "Big Data Solutions",
-    description:
-      "Advanced analytics and real-time insights that turn raw data into business opportunities.",
+    index: "03",
+    title: "Data & Analytics",
+    description: "Data engineering, analytics, and BI that turn raw data into decisions.",
     icon: "data",
   },
   {
-    title: "Digital Marketing",
-    description:
-      "Tailored SEO, social, content, and PPC strategies that grow your brand, drive traffic, and deliver measurable results.",
+    index: "04",
+    title: "Software Development",
+    description: "Web, mobile, and enterprise applications built on modern, maintainable stacks.",
+    icon: "code",
+  },
+  {
+    index: "05",
+    title: "IT Staffing",
+    description: "Vetted technology talent for temporary, contract, or permanent engagements.",
+    icon: "staffing",
+  },
+  {
+    index: "06",
+    title: "Digital Growth",
+    description: "SEO, content, social, and paid strategy engineered around measurable results.",
     icon: "growth",
   },
 ];
@@ -78,76 +83,96 @@ export interface WhyPoint {
 
 export const whyPoints: WhyPoint[] = [
   {
+    title: "Expert technology professionals",
+    description: "Every engagement is staffed and reviewed by senior practitioners.",
+  },
+  {
+    title: "Flexible engagement models",
+    description: "Project-based, staff-augmentation, or fully managed delivery.",
+  },
+  {
+    title: "End-to-end service delivery",
+    description: "From discovery through production support, under one accountable team.",
+  },
+  {
+    title: "Quality & on-time commitment",
+    description: "Scoped, tested, and shipped against the timeline we agree to.",
+  },
+  {
+    title: "Scalable & cost-effective solutions",
+    description: "Architecture that grows with the business instead of being rebuilt for it.",
+  },
+  {
     title: "Global delivery, local accountability",
-    description:
-      "Teams operating across time zones with a single point of ownership for every engagement.",
-  },
-  {
-    title: "Engineering-first culture",
-    description:
-      "Every solution is built and reviewed by senior practitioners, not templated out by juniors.",
-  },
-  {
-    title: "Security & compliance built in",
-    description:
-      "Zero-trust defaults, audited pipelines, and compliance-aware architecture from day one.",
-  },
-  {
-    title: "Outcomes over output",
-    description:
-      "We measure success in business metrics moved, not hours billed or tickets closed.",
+    description: "Teams operating across time zones with a single point of ownership.",
   },
 ];
 
 export interface Industry {
   name: string;
   description: string;
+  capabilities: string[];
 }
 
 export const industries: Industry[] = [
   {
     name: "E-Commerce",
-    description:
-      "Scalable storefronts, recommendation engines, and checkout systems built for peak traffic.",
+    description: "Scalable storefronts, recommendation engines, and checkout systems built for peak traffic.",
+    capabilities: ["Storefront & catalog engineering", "Checkout & payments integration", "Search & recommendations"],
   },
   {
     name: "Information Technology",
-    description:
-      "Platform modernization, DevOps, and managed infrastructure for technology-first organizations.",
+    description: "Platform modernization, DevOps, and managed infrastructure for technology-first organizations.",
+    capabilities: ["Legacy platform modernization", "DevOps & CI/CD pipelines", "Managed infrastructure"],
   },
   {
     name: "Hospitality",
-    description:
-      "Booking systems, guest experience platforms, and operational analytics for hospitality brands.",
+    description: "Booking systems, guest experience platforms, and operational analytics for hospitality brands.",
+    capabilities: ["Booking & reservation systems", "Guest experience platforms", "Operational analytics"],
   },
   {
     name: "Entertainment",
-    description:
-      "Streaming, content delivery, and audience analytics built to handle scale and latency demands.",
+    description: "Streaming, content delivery, and audience analytics built to handle scale and latency demands.",
+    capabilities: ["Streaming & content delivery", "Audience analytics", "Scale-ready infrastructure"],
   },
   {
     name: "Healthcare",
-    description:
-      "HIPAA-aware data platforms and patient-facing systems built for reliability and privacy.",
+    description: "Compliance-aware data platforms and patient-facing systems built for reliability and privacy.",
+    capabilities: ["Compliance-aware architecture", "Patient-facing systems", "Data privacy & security"],
   },
   {
     name: "Finance",
-    description:
-      "Secure, compliant systems for payments, risk analytics, and financial reporting.",
+    description: "Secure, compliant systems for payments, risk analytics, and financial reporting.",
+    capabilities: ["Payments infrastructure", "Risk & fraud analytics", "Regulatory reporting"],
   },
 ];
 
-export const techStack: string[] = [
-  "Python",
-  "React",
-  "Node.js",
-  "AWS",
-  "Azure",
-  "OpenAI",
-  "Docker",
-  "Kubernetes",
-  "TypeScript",
-  "PostgreSQL",
+export interface TechCategory {
+  category: string;
+  items: string[];
+}
+
+export const techCategories: TechCategory[] = [
+  { category: "AI & Data", items: ["Python", "OpenAI", "PostgreSQL"] },
+  { category: "Cloud", items: ["AWS", "Azure", "Docker", "Kubernetes"] },
+  { category: "Frontend", items: ["React", "TypeScript"] },
+  { category: "Backend", items: ["Node.js"] },
+];
+
+export const techStack: string[] = techCategories.flatMap((c) => c.items);
+
+export interface CaseStudy {
+  industry: string;
+  title: string;
+}
+
+// No case studies have been published yet. Per the brief this section was
+// scoped against, fabricating client names/results is off the table — this
+// is the section's architecture, ready for real projects to slot into.
+export const caseStudies: CaseStudy[] = [
+  { industry: "AI", title: "Case study coming soon" },
+  { industry: "Cloud", title: "Case study coming soon" },
+  { industry: "Data", title: "Case study coming soon" },
 ];
 
 export interface ProcessStep {
@@ -157,8 +182,8 @@ export interface ProcessStep {
 }
 
 export const processSteps: ProcessStep[] = [
-  { step: "01", title: "Discovery", description: "Understand goals, constraints, and success metrics." },
-  { step: "02", title: "Planning", description: "Architecture, timeline, and resourcing locked in." },
+  { step: "01", title: "Discovery", description: "Understand business goals, users, and technical requirements." },
+  { step: "02", title: "Planning", description: "Define architecture, roadmap, and delivery strategy." },
   { step: "03", title: "Design", description: "Experience and system design validated with stakeholders." },
   { step: "04", title: "Development", description: "Iterative build with continuous review and testing." },
   { step: "05", title: "Deployment", description: "Production rollout with monitoring from day one." },
@@ -171,19 +196,32 @@ export interface Testimonial {
   quote: string;
 }
 
+// Verbatim from the live site's testimonials — not invented.
 export const testimonials: Testimonial[] = [
   {
     name: "Sumanth",
     role: "Client",
-    quote:
-      "Their digital marketing expertise drove remarkable growth in our online visibility within months.",
+    quote: "Their digital marketing expertise drove remarkable growth in our online visibility within months.",
   },
   {
     name: "Leema",
     role: "Client",
-    quote:
-      "WinSphere transformed our IT infrastructure and meaningfully improved system performance.",
+    quote: "WinSphere transformed our IT infrastructure and meaningfully improved system performance.",
   },
+];
+
+export interface Partner {
+  name: string;
+  logo: string;
+}
+
+// Logo files expected at public/partners/<file>. Swap `name` for the real
+// company name once confirmed — it's currently a best-guess label from the
+// logo mark alone.
+export const partners: Partner[] = [
+  { name: "24 Seven", logo: "/partners/24seven.png" },
+  { name: "Business Firm", logo: "/partners/businessfirm.png" },
+  { name: "Lotus", logo: "/partners/lotus.png" },
 ];
 
 export const contactInfo = {

@@ -1,21 +1,39 @@
-import { techStack } from "@/lib/content";
+import { techCategories, techStack } from "@/lib/content";
+import { ScrollReveal } from "@/components/ScrollReveal";
 
 export function TechStack() {
   const looped = [...techStack, ...techStack];
 
   return (
-    <section className="overflow-hidden border-y border-border bg-bg-secondary py-10">
+    <section className="overflow-hidden bg-bg-secondary fluid-py">
       <div className="mx-auto max-w-7xl fluid-px">
-        <p className="mb-6 text-center text-sm font-semibold uppercase tracking-widest text-text-secondary">
-          Built with technology enterprises trust
-        </p>
+        <ScrollReveal className="max-w-2xl">
+          <p className="text-sm font-semibold uppercase tracking-widest text-primary">Technology</p>
+          <h2 className="mt-3 text-4xl font-extrabold sm:text-5xl">Technology We Build With</h2>
+        </ScrollReveal>
+
+        <div className="fluid-section-mt grid grid-cols-2 gap-6 sm:grid-cols-4">
+          {techCategories.map((cat) => (
+            <div key={cat.category}>
+              <p className="text-xs font-semibold uppercase tracking-widest text-muted">{cat.category}</p>
+              <ul className="mt-2 flex flex-col gap-1">
+                {cat.items.map((item) => (
+                  <li key={item} className="text-sm font-medium text-text-secondary">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
       </div>
-      <div className="relative flex overflow-hidden">
+
+      <div className="relative mt-12 flex overflow-hidden border-y border-border py-6">
         <div className="flex shrink-0 animate-[marquee_28s_linear_infinite] gap-16 pr-16">
           {looped.map((tech, i) => (
             <span
               key={`${tech}-${i}`}
-              className="whitespace-nowrap text-2xl font-bold text-text-secondary transition-colors hover:text-primary"
+              className="whitespace-nowrap text-lg font-semibold text-muted transition-colors hover:text-primary"
             >
               {tech}
             </span>

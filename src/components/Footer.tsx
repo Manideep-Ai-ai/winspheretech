@@ -2,16 +2,21 @@
 
 import Image from "next/image";
 import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa6";
-import { HiOutlineLink, HiOutlineMail } from "react-icons/hi";
-import { navLinks, contactInfo } from "@/lib/content";
+import { contactInfo, industries, services } from "@/lib/content";
 
 const socialIcons = { LinkedIn: FaLinkedinIn, Instagram: FaInstagram, Facebook: FaFacebookF } as const;
 
+const companyLinks = [
+  { label: "About", href: "#why-us" },
+  { label: "Careers", href: "#careers" },
+  { label: "Contact", href: "#contact" },
+];
+
 export function Footer() {
   return (
-    <footer className="relative z-10 border-t border-border bg-bg px-6 py-14 lg:px-8">
+    <footer className="relative z-10 bg-navy-1 px-6 py-14 text-navy-text lg:px-8">
       <div className="mx-auto max-w-7xl">
-        <div className="flex flex-col gap-10 sm:flex-row sm:justify-between">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div className="max-w-sm">
             <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-2 sm:flex">
               <Image
@@ -21,9 +26,9 @@ export function Footer() {
                 height={32}
                 className="shrink-0 rounded-lg"
               />
-              <span className="min-w-0 truncate font-heading text-lg text-text">WinSphere</span>
+              <span className="min-w-0 truncate font-heading text-lg text-navy-text">WinSphere</span>
             </div>
-            <p className="mt-4 text-sm text-text-secondary">
+            <p className="mt-4 text-sm text-navy-text-secondary">
               AI, cloud, and software engineering for enterprises moving fast.
             </p>
             <div className="mt-6 flex gap-3">
@@ -34,7 +39,7 @@ export function Footer() {
                     key={name}
                     href="#"
                     aria-label={name}
-                    className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-text-secondary transition-colors hover:border-primary/40 hover:text-primary"
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-navy-border text-navy-text-secondary transition-colors hover:border-teal/40 hover:text-teal"
                   >
                     <Icon size={16} />
                   </a>
@@ -44,14 +49,11 @@ export function Footer() {
           </div>
 
           <div>
-            <p className="flex items-center gap-2 text-sm font-semibold text-text">
-              <HiOutlineLink size={16} className="text-primary" />
-              Quick Links
-            </p>
+            <p className="text-sm font-semibold text-navy-text">Company</p>
             <ul className="mt-4 flex flex-col gap-3">
-              {navLinks.map((link) => (
+              {companyLinks.map((link) => (
                 <li key={link.href}>
-                  <a href={link.href} className="text-sm text-text-secondary hover:text-primary">
+                  <a href={link.href} className="text-sm text-navy-text-secondary hover:text-teal">
                     {link.label}
                   </a>
                 </li>
@@ -60,30 +62,35 @@ export function Footer() {
           </div>
 
           <div>
-            <p className="flex items-center gap-2 text-sm font-semibold text-text">
-              <HiOutlineMail size={16} className="text-primary" />
-              Stay Updated
-            </p>
-            <p className="mt-4 max-w-xs text-sm text-text-secondary">
-              Subscribe for insights on AI, cloud, and digital growth.
-            </p>
-            <form className="mt-4 flex gap-2" onSubmit={(e) => e.preventDefault()}>
-              <input
-                type="email"
-                required
-                placeholder="you@company.com"
-                className="w-full rounded-full border border-border bg-transparent px-4 py-2 text-sm outline-none focus:border-primary"
-              />
-              <button className="shrink-0 rounded-full bg-gradient-to-r from-primary to-secondary px-4 py-2 text-sm font-semibold text-bg">
-                Join
-              </button>
-            </form>
+            <p className="text-sm font-semibold text-navy-text">Services</p>
+            <ul className="mt-4 flex flex-col gap-3">
+              {services.map((service) => (
+                <li key={service.title}>
+                  <a href="#services" className="text-sm text-navy-text-secondary hover:text-teal">
+                    {service.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <p className="text-sm font-semibold text-navy-text">Industries</p>
+            <ul className="mt-4 flex flex-col gap-3">
+              {industries.map((industry) => (
+                <li key={industry.name}>
+                  <a href="#industries" className="text-sm text-navy-text-secondary hover:text-teal">
+                    {industry.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
-        <div className="my-10 h-px w-full bg-gradient-to-r from-transparent via-border to-transparent" />
+        <div className="my-10 h-px w-full bg-navy-border" />
 
-        <p className="text-center text-xs text-muted">
+        <p className="text-center text-xs text-navy-text-secondary">
           &copy; {new Date().getFullYear()} WinSphere Technologies. All rights reserved.
         </p>
       </div>

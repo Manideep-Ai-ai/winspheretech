@@ -2,13 +2,14 @@
 
 import { useState, type FormEvent } from "react";
 import { Mail, MapPin, Phone } from "lucide-react";
-import { contactInfo } from "@/lib/content";
+import { contactInfo, services } from "@/lib/content";
 import { ScrollReveal } from "@/components/ScrollReveal";
 
 const fields = [
-  { name: "name", label: "Full Name", type: "text" },
-  { name: "email", label: "Email Address", type: "email" },
-  { name: "company", label: "Company", type: "text" },
+  { name: "name", label: "Full Name", type: "text", required: true },
+  { name: "email", label: "Work Email", type: "email", required: true },
+  { name: "company", label: "Company", type: "text", required: true },
+  { name: "phone", label: "Phone", type: "tel", required: false },
 ] as const;
 
 export function Contact() {
@@ -19,7 +20,7 @@ export function Contact() {
     const data = new FormData(e.currentTarget);
     const subject = encodeURIComponent(`Inquiry from ${data.get("name")}`);
     const body = encodeURIComponent(
-      `Name: ${data.get("name")}\nEmail: ${data.get("email")}\nCompany: ${data.get("company")}\n\n${data.get("message")}`
+      `Name: ${data.get("name")}\nEmail: ${data.get("email")}\nCompany: ${data.get("company")}\nPhone: ${data.get("phone") || "-"}\nService: ${data.get("service")}\n\n${data.get("message")}`
     );
     window.location.href = `mailto:${contactInfo.email}?subject=${subject}&body=${body}`;
     setSent(true);
@@ -34,8 +35,8 @@ export function Contact() {
             Let&rsquo;s build what&rsquo;s next.
           </h2>
           <p className="mt-6 max-w-md text-text-secondary">
-            Tell us about your project and we&rsquo;ll get back to you within
-            one business day.
+            Tell us what you&rsquo;re trying to build, improve, or scale. Our
+            team will get back to you within one business day.
           </p>
 
           <div className="mt-10 flex flex-col gap-5">
@@ -60,7 +61,7 @@ export function Contact() {
                     id={field.name}
                     name={field.name}
                     type={field.type}
-                    required
+                    required={field.required}
                     placeholder=" "
                     className="peer w-full rounded-xl border border-border bg-transparent px-4 py-3.5 text-text outline-none transition-colors focus:border-primary"
                   />
@@ -69,9 +70,32 @@ export function Contact() {
                     className="pointer-events-none absolute left-4 top-3.5 text-text-secondary transition-all peer-focus:-top-2.5 peer-focus:left-3 peer-focus:text-xs peer-focus:text-primary peer-focus:bg-bg peer-focus:px-1 peer-[:not(:placeholder-shown)]:-top-2.5 peer-[:not(:placeholder-shown)]:left-3 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:bg-bg peer-[:not(:placeholder-shown)]:px-1"
                   >
                     {field.label}
+                    {!field.required && <span className="text-muted"> (optional)</span>}
                   </label>
                 </div>
               ))}
+
+              <div>
+                <label htmlFor="service" className="mb-1.5 block text-xs font-semibold text-text-secondary">
+                  Service Required
+                </label>
+                <select
+                  id="service"
+                  name="service"
+                  required
+                  defaultValue=""
+                  className="w-full rounded-xl border border-border bg-transparent px-4 py-3.5 text-text outline-none transition-colors focus:border-primary"
+                >
+                  <option value="" disabled>
+                    Select a service
+                  </option>
+                  {services.map((service) => (
+                    <option key={service.title} value={service.title}>
+                      {service.title}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
               <div className="relative">
                 <textarea
@@ -94,7 +118,7 @@ export function Contact() {
                 type="submit"
                 className="mt-2 rounded-full bg-gradient-to-r from-primary to-secondary px-7 py-3.5 font-semibold text-bg transition-transform hover:scale-[1.02]"
               >
-                Send Message
+                Send Enquiry
               </button>
               {sent && <p className="text-sm text-primary">Opening your email client&hellip;</p>}
             </div>

@@ -4,16 +4,32 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Cream + matte blue brand palette */
-  --color-bg: #f6f1e6;
-  --color-bg-secondary: #ede4d0;
-  --color-card: rgba(255, 255, 255, 0.5);
-  --color-border: rgba(23, 24, 28, 0.12);
-  --color-primary: #2c4870;
-  --color-secondary: #4a729e;
-  --color-text: #17181c;
-  --color-text-secondary: #5b564c;
-  --color-muted: #948c78;
+  /* Enterprise tech palette: navy + white + teal, restrained blue.
+     Light sections are the default; dark (navy) sections opt in via the
+     navy-* tokens below. */
+  --color-navy-1: #031a33;
+  --color-navy-2: #061f3a;
+  --color-navy-3: #082744;
+  --color-teal: #19c7a3;
+  --color-teal-2: #20d3a7;
+  --color-blue: #1689d8;
+  --color-blue-2: #36a9e1;
+
+  --color-bg: #f7f9fb;
+  --color-bg-secondary: #ffffff;
+  --color-card: #ffffff;
+  --color-border: rgba(11, 27, 43, 0.1);
+  --color-primary: var(--color-teal);
+  --color-secondary: var(--color-blue);
+  --color-text: #0b1b2b;
+  --color-text-secondary: #64748b;
+  --color-muted: #94a3b8;
+
+  /* Inverse (navy) surfaces: hero, footer, "Why WinSphere" — deliberately
+     distinct from the light body instead of blending into it. */
+  --color-navy-text: #f7f9fb;
+  --color-navy-text-secondary: rgba(247, 249, 251, 0.68);
+  --color-navy-border: rgba(247, 249, 251, 0.14);
 
   --background: var(--color-bg);
   --foreground: var(--color-text);
@@ -22,14 +38,14 @@
   --popover: var(--color-bg-secondary);
   --popover-foreground: var(--color-text);
   --primary: var(--color-primary);
-  --primary-foreground: var(--color-bg);
+  --primary-foreground: var(--color-navy-1);
   --secondary: var(--color-bg-secondary);
   --secondary-foreground: var(--color-text);
   --muted: var(--color-bg-secondary);
   --muted-foreground: var(--color-text-secondary);
   --accent: var(--color-secondary);
-  --accent-foreground: var(--color-bg);
-  --destructive: #b3432f;
+  --accent-foreground: #ffffff;
+  --destructive: #d64545;
   --border: var(--color-border);
   --input: var(--color-border);
   --ring: var(--color-primary);
@@ -37,6 +53,17 @@
 }
 
 @theme inline {
+  --color-navy-1: var(--color-navy-1);
+  --color-navy-2: var(--color-navy-2);
+  --color-navy-3: var(--color-navy-3);
+  --color-teal: var(--color-teal);
+  --color-teal-2: var(--color-teal-2);
+  --color-blue: var(--color-blue);
+  --color-blue-2: var(--color-blue-2);
+  --color-navy-text: var(--color-navy-text);
+  --color-navy-text-secondary: var(--color-navy-text-secondary);
+  --color-navy-border: var(--color-navy-border);
+
   --color-bg: var(--color-bg);
   --color-bg-secondary: var(--color-bg-secondary);
   --color-card: var(--color-card);
@@ -137,24 +164,18 @@ video {
 .glass {
   background: var(--color-card);
   border: 1px solid var(--color-border);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 20px 50px -20px rgba(11, 27, 43, 0.15);
 }
 
 .text-gradient {
-  color: var(--color-primary);
+  background: linear-gradient(90deg, var(--color-teal), var(--color-teal-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .glow-primary {
-  box-shadow: 0 12px 28px -10px rgba(23, 24, 28, 0.22);
-}
-
-/* Section divider: a thin rule used between major sections to visually
-   "segregate" them instead of one unbroken cream field. */
-.section-divider {
-  height: 1px;
-  width: 100%;
-  background: linear-gradient(90deg, transparent, var(--color-border) 20%, var(--color-border) 80%, transparent);
+  box-shadow: 0 12px 28px -10px rgba(25, 199, 163, 0.35);
 }
 
 @media (prefers-reduced-motion: reduce) {
