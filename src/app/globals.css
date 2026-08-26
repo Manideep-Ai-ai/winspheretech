@@ -178,6 +178,32 @@ video {
   box-shadow: 0 12px 28px -10px rgba(25, 199, 163, 0.35);
 }
 
+/* Shared infinite marquee: two duplicated tracks slide left by exactly one
+   track-width, so the loop seam is invisible. Pauses on hover/focus so a
+   reader can actually stop on a logo. */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee 32s linear infinite;
+}
+
+.marquee-track:hover,
+.marquee-track:focus-within {
+  animation-play-state: paused;
+}
+
+.edge-fade-x {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

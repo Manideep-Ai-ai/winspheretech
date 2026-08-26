@@ -28,8 +28,8 @@ export function TechStack() {
         </div>
       </div>
 
-      <div className="relative mt-12 flex overflow-hidden border-y border-border py-6">
-        <div className="flex shrink-0 animate-[marquee_28s_linear_infinite] gap-16 pr-16">
+      <div className="edge-fade-x relative mt-12 flex overflow-hidden border-y border-border py-6">
+        <div className="marquee-track flex shrink-0 gap-16 pr-16">
           {looped.map((tech, i) => (
             <span
               key={`${tech}-${i}`}
@@ -40,12 +40,6 @@ export function TechStack() {
           ))}
         </div>
       </div>
-      <style>{`
-        @keyframes marquee {
-          from { transform: translateX(0); }
-          to { transform: translateX(-50%); }
-        }
-      `}</style>
     </section>
   );
 }

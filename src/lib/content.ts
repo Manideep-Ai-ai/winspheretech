@@ -213,13 +213,16 @@ export const testimonials: Testimonial[] = [
 export interface Partner {
   name: string;
   logo: string;
+  /** True when the logo mark itself is white/light — it needs a dark chip
+   *  behind it or it disappears on a white card. */
+  onDark?: boolean;
 }
 
 // Logo files expected at public/partners/<file>. Swap `name` for the real
 // company name once confirmed — it's currently a best-guess label from the
 // logo mark alone.
 export const partners: Partner[] = [
-  { name: "24 Seven", logo: "/partners/24seven.png" },
+  { name: "24 Seven", logo: "/partners/24seven.png", onDark: true },
   { name: "Business Firm", logo: "/partners/businessfirm.png" },
   { name: "Lotus", logo: "/partners/lotus.png" },
 ];
