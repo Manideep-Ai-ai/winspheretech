@@ -1,9 +1,8 @@
-import { ArrowRight, BookOpen, Globe2, HeartHandshake, Puzzle, TrendingUp } from "lucide-react";
+import { ArrowRight, BookOpen, HeartHandshake, Puzzle, TrendingUp } from "lucide-react";
 import { contactInfo } from "@/lib/content";
 import { ScrollReveal } from "@/components/ScrollReveal";
 
 const benefits = [
-  { icon: Globe2, label: "Remote-first opportunities" },
   { icon: TrendingUp, label: "Growth-focused environment" },
   { icon: BookOpen, label: "Learning & development" },
   { icon: HeartHandshake, label: "Health & wellness coverage" },

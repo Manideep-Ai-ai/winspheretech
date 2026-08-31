@@ -29,7 +29,10 @@ export function Footer() {
               <span className="min-w-0 truncate font-heading text-lg text-navy-text">WinSphere</span>
             </div>
             <p className="mt-4 text-sm text-navy-text-secondary">
-              AI, cloud, and software engineering for enterprises moving fast.
+              WinSphere helps businesses transform ideas into scalable
+              digital solutions. We combine technology, design, and
+              industry expertise to build experiences that create lasting
+              business value.
             </p>
             <div className="mt-6 flex gap-3">
               {contactInfo.social.map((name) => {
