@@ -50,14 +50,14 @@ const organizationSchema = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} font-sans h-full antialiased`}>
+    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} font-sans antialiased`}>
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
       </head>
-      <body className="min-h-full flex flex-col bg-bg text-text">
+      <body className="flex flex-col bg-bg text-text">
         {children}
       </body>
     </html>

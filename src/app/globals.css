@@ -118,6 +118,38 @@
   margin-top: clamp(2rem, 5vw, 4rem);
 }
 
+/* Fluid type: replaces breakpoint-jump headings (text-4xl sm:text-5xl) with
+   a continuous scale, so nothing snaps at 640px. */
+@utility text-fluid-h1 {
+  font-size: clamp(2.75rem, 2rem + 4vw, 4.5rem);
+}
+
+@utility text-fluid-h2 {
+  font-size: clamp(1.875rem, 1.5rem + 2vw, 3rem);
+}
+
+/* Self-sizing card grids: the browser decides the column count from
+   available width, so there's never a hardcoded count leaving dead space
+   at an in-between width. auto-fit (not auto-fill) collapses empty tracks
+   instead of stranding items on one side of a wide row. */
+@utility auto-grid-sm {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(11rem, 100%), 1fr));
+  gap: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+@utility auto-grid-md {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(13rem, 100%), 1fr));
+  gap: clamp(1.25rem, 3vw, 2rem);
+}
+
+@utility auto-grid-lg {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(17.5rem, 100%), 1fr));
+  gap: clamp(1.25rem, 2.5vw, 1.5rem);
+}
+
 * {
   scrollbar-width: thin;
   scrollbar-color: var(--color-border) transparent;
@@ -137,9 +169,14 @@ body {
 html {
   background: var(--color-bg);
   scroll-behavior: smooth;
+  /* The nav is fixed at ~80px tall; without this, jumping to an anchor
+     (#services, #industries, ...) lands the target's top edge underneath
+     it. */
+  scroll-padding-top: 88px;
 }
 
 body {
+  min-height: 100dvh;
   background: var(--color-bg);
   color: var(--color-text);
   font-weight: 500;

@@ -11,7 +11,7 @@ export function WhyChooseUs() {
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-x-16 fluid-gap-y lg:grid-cols-2">
         <ScrollReveal>
           <p className="text-sm font-semibold uppercase tracking-widest text-teal">Why Choose WinSphere</p>
-          <h2 className="mt-3 text-4xl font-extrabold leading-tight sm:text-5xl">Your Success Is Our Mission</h2>
+          <h2 className="mt-3 text-fluid-h2 font-extrabold leading-tight">Your Success Is Our Mission</h2>
           <p className="mt-6 max-w-md text-lg text-navy-text-secondary">
             We operate as an extension of your team, not a vendor. Every
             engagement is scoped, staffed with senior practitioners, and
@@ -26,7 +26,7 @@ export function WhyChooseUs() {
           </a>
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <div className="auto-grid-sm">
           {whyPoints.map((point, i) => (
             <motion.div
               key={point.title}

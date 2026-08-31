@@ -7,10 +7,10 @@ export function CaseStudies() {
       <div className="mx-auto max-w-7xl">
         <ScrollReveal className="max-w-2xl">
           <p className="text-sm font-semibold uppercase tracking-widest text-primary">Case Studies</p>
-          <h2 className="mt-3 text-4xl font-extrabold sm:text-5xl">Technology That Delivers Results</h2>
+          <h2 className="mt-3 text-fluid-h2 font-extrabold">Technology That Delivers Results</h2>
         </ScrollReveal>
 
-        <div className="fluid-section-mt grid grid-cols-1 gap-6 sm:grid-cols-3">
+        <div className="fluid-section-mt auto-grid-lg">
           {caseStudies.map((study, i) => (
             <ScrollReveal key={study.industry} delay={i * 0.08}>
               <div className="flex h-full flex-col justify-between rounded-2xl border border-dashed border-border bg-card p-8">

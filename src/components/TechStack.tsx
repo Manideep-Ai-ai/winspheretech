@@ -9,10 +9,10 @@ export function TechStack() {
       <div className="mx-auto max-w-7xl fluid-px">
         <ScrollReveal className="max-w-2xl">
           <p className="text-sm font-semibold uppercase tracking-widest text-primary">Technology</p>
-          <h2 className="mt-3 text-4xl font-extrabold sm:text-5xl">Technology We Build With</h2>
+          <h2 className="mt-3 text-fluid-h2 font-extrabold">Technology We Build With</h2>
         </ScrollReveal>
 
-        <div className="fluid-section-mt grid grid-cols-2 gap-6 sm:grid-cols-4">
+        <div className="fluid-section-mt auto-grid-sm">
           {techCategories.map((cat) => (
             <div key={cat.category}>
               <p className="text-xs font-semibold uppercase tracking-widest text-muted">{cat.category}</p>

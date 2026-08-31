@@ -41,7 +41,7 @@ export function Process() {
       <div className="mx-auto max-w-7xl">
         <ScrollReveal className="max-w-2xl">
           <p className="text-sm font-semibold uppercase tracking-widest text-primary">Process</p>
-          <h2 className="mt-3 text-4xl font-extrabold sm:text-5xl">From discovery to sustained support</h2>
+          <h2 className="mt-3 text-fluid-h2 font-extrabold">From discovery to sustained support</h2>
         </ScrollReveal>
 
         {/* Desktop: horizontal timeline with a scroll-drawn connecting line. */}

@@ -31,7 +31,7 @@ export function Contact() {
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-x-16 fluid-gap-y lg:grid-cols-2">
         <ScrollReveal>
           <p className="text-sm font-semibold uppercase tracking-widest text-primary">Contact</p>
-          <h2 className="mt-3 text-4xl font-extrabold leading-tight sm:text-5xl">
+          <h2 className="mt-3 text-fluid-h2 font-extrabold leading-tight">
             Let&rsquo;s build what&rsquo;s next.
           </h2>
           <p className="mt-6 max-w-md text-text-secondary">

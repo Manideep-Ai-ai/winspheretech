@@ -16,7 +16,7 @@ export function Footer() {
   return (
     <footer className="relative z-10 bg-navy-1 px-6 py-14 text-navy-text lg:px-8">
       <div className="mx-auto max-w-7xl">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="auto-grid-md">
           <div className="max-w-sm">
             <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-2 sm:flex">
               <Image
@@ -39,7 +39,7 @@ export function Footer() {
                     key={name}
                     href="#"
                     aria-label={name}
-                    className="flex h-9 w-9 items-center justify-center rounded-full border border-navy-border text-navy-text-secondary transition-colors hover:border-teal/40 hover:text-teal"
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-navy-border text-navy-text-secondary transition-colors hover:border-teal/40 hover:text-teal"
                   >
                     <Icon size={16} />
                   </a>

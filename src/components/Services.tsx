@@ -20,13 +20,13 @@ export function Services() {
       <div className="mx-auto max-w-7xl">
         <ScrollReveal className="max-w-2xl">
           <p className="text-sm font-semibold uppercase tracking-widest text-primary">What We Do</p>
-          <h2 className="mt-3 text-4xl font-extrabold sm:text-5xl">End-to-End Technology Solutions</h2>
+          <h2 className="mt-3 text-fluid-h2 font-extrabold">End-to-End Technology Solutions</h2>
           <p className="mt-4 text-lg text-text-secondary">
             Technology solutions designed to help organizations build, modernize, scale, and grow.
           </p>
         </ScrollReveal>
 
-        <div className="fluid-section-mt grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="fluid-section-mt auto-grid-lg">
           {services.map((service, i) => {
             const Icon = icons[service.icon];
             return (

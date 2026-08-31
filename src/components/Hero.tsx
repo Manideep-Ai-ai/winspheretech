@@ -19,7 +19,7 @@ export function Hero() {
     <section
       id="home"
       ref={heroRef}
-      className="relative isolate flex min-h-[90vh] flex-col justify-center overflow-hidden bg-navy-1 pt-24 pb-40 text-navy-text"
+      className="relative isolate flex min-h-[90dvh] flex-col justify-center overflow-hidden bg-navy-1 pt-24 pb-40 text-navy-text"
     >
       {/* Signature hero element: the globe emerges from the bottom, cropped
           by the viewport, and belongs only to this section — it fades out
@@ -44,7 +44,7 @@ export function Hero() {
           Technology &middot; Talent &middot; Digital Transformation
         </motion.p>
 
-        <h1 className="mt-5 text-6xl leading-[1.05] tracking-tight sm:text-7xl">
+        <h1 className="mt-5 text-fluid-h1 leading-[1.05] tracking-tight">
           {lines.map((line, i) => (
             <motion.span
               key={line}

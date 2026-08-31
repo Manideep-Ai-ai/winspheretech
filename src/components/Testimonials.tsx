@@ -8,7 +8,7 @@ export function Testimonials() {
       <div className="mx-auto max-w-5xl">
         <ScrollReveal className="text-center">
           <p className="text-sm font-semibold uppercase tracking-widest text-primary">Testimonials</p>
-          <h2 className="mt-3 text-4xl font-extrabold sm:text-5xl">What clients say</h2>
+          <h2 className="mt-3 text-fluid-h2 font-extrabold">What clients say</h2>
         </ScrollReveal>
 
         <div className="fluid-section-mt grid grid-cols-1 gap-6 sm:grid-cols-2">

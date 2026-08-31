@@ -16,7 +16,7 @@ export function Careers() {
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
           <ScrollReveal>
             <p className="text-sm font-semibold uppercase tracking-widest text-teal">Careers</p>
-            <h2 className="mt-3 text-4xl font-extrabold sm:text-5xl">Build Your Career With WinSphere</h2>
+            <h2 className="mt-3 text-fluid-h2 font-extrabold">Build Your Career With WinSphere</h2>
             <p className="mt-6 max-w-md text-navy-text-secondary">
               We hire engineers, strategists, and specialists who want their
               work to move real business metrics. Explore open roles across
