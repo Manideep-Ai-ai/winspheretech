@@ -1,4 +1,5 @@
 import { ArrowRight, BookOpen, Globe2, HeartHandshake, Puzzle, TrendingUp } from "lucide-react";
+import { contactInfo } from "@/lib/content";
 import { ScrollReveal } from "@/components/ScrollReveal";
 
 const benefits = [
@@ -23,7 +24,7 @@ export function Careers() {
               engineering, data, and growth.
             </p>
             <a
-              href={`mailto:ITsupport@winspheretech.com?subject=Careers%20Inquiry`}
+              href={`mailto:${contactInfo.email}?subject=Careers%20Inquiry`}
               className="mt-8 inline-flex items-center gap-2 rounded-full bg-teal px-7 py-3.5 font-semibold text-navy-1 transition-transform hover:scale-105"
             >
               Apply Now <ArrowRight size={18} />

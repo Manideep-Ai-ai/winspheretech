@@ -228,8 +228,8 @@ export const partners: Partner[] = [
 ];
 
 export const contactInfo = {
-  email: "ITsupport@winspheretech.com",
+  email: "winspheretechnologies@gmail.com",
   phone: "+91-9494409785",
-  location: "22nd Streets, Colorado",
+  location: "Begumpet, Hyderabad, Telangana",
   social: ["LinkedIn", "Instagram", "Facebook"],
 };
