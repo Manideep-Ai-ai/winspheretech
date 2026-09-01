@@ -22,12 +22,51 @@ interface RequestContext {
 const DEFAULT_FROM = "WinSphere Technologies <onboarding@resend.dev>";
 const DEFAULT_TO = "winspheretechnologies@gmail.com";
 
+// One submission per IP per minute. This endpoint emails whatever address
+// the caller supplies (the visitor confirmation), which makes it a spam
+// relay if left unthrottled — anyone could script requests to blast
+// arbitrary inboxes with WinSphere-branded email. The Cache API gives a
+// real per-edge-node limit with zero extra Cloudflare resources to
+// provision; it's not a global counter (a distributed attacker spread
+// across many PoPs can still exceed 1/min in aggregate), so if abuse shows
+// up in practice, move this to a Cloudflare native Rate Limiting Rule (WAF,
+// no code change) or a KV/Durable Object-backed counter for a hard global
+// limit.
+const RATE_LIMIT_WINDOW_SECONDS = 60;
+
+// `caches.default` is a Cloudflare Workers runtime extension (the edge
+// cache tied to this request's PoP) — not part of the standard CacheStorage
+// type lib.dom.d.ts ships, so it needs a narrow cast rather than `any`.
+const cloudflareCaches = caches as unknown as { default: Cache };
+
+async function isRateLimited(request: Request): Promise<boolean> {
+  const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+  const cacheKey = new Request(`https://rate-limit.internal/contact/${encodeURIComponent(ip)}`);
+  const cache = cloudflareCaches.default;
+
+  const existing = await cache.match(cacheKey);
+  if (existing) return true;
+
+  await cache.put(
+    cacheKey,
+    new Response("1", { headers: { "Cache-Control": `max-age=${RATE_LIMIT_WINDOW_SECONDS}` } })
+  );
+  return false;
+}
+
 function isNonEmptyString(value: unknown): value is string {
   return typeof value === "string" && value.trim().length > 0;
 }
 
+// The WHATWG HTML5 spec's email-input pattern — well-vetted, no
+// catastrophic-backtracking risk, and matches what browsers themselves
+// accept for type="email", so it agrees with the client-side validation
+// instead of silently disagreeing with it.
+const EMAIL_PATTERN =
+  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
+
 function isValidEmail(value: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  return value.length <= 320 && EMAIL_PATTERN.test(value);
 }
 
 function parseSubmission(body: unknown): ContactSubmission | null {
@@ -35,7 +74,7 @@ function parseSubmission(body: unknown): ContactSubmission | null {
   const b = body as Record<string, unknown>;
 
   if (!isNonEmptyString(b.name)) return null;
-  if (!isNonEmptyString(b.email) || !isValidEmail(b.email)) return null;
+  if (!isNonEmptyString(b.email) || !isValidEmail(b.email.trim())) return null;
   if (!isNonEmptyString(b.company)) return null;
   if (!isNonEmptyString(b.service)) return null;
   if (!isNonEmptyString(b.message)) return null;
@@ -80,6 +119,10 @@ export async function onRequestPost(context: RequestContext): Promise<Response> 
 
   if (!env.RESEND_API_KEY) {
     return Response.json({ error: "Email service is not configured." }, { status: 500 });
+  }
+
+  if (await isRateLimited(request)) {
+    return Response.json({ error: "Too many requests. Please wait a moment and try again." }, { status: 429 });
   }
 
   let body: unknown;
