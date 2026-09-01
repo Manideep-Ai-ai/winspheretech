@@ -12,18 +12,46 @@ const fields = [
   { name: "phone", label: "Phone", type: "tel", required: false },
 ] as const;
 
-export function Contact() {
-  const [sent, setSent] = useState(false);
+type Status = "idle" | "submitting" | "success" | "error";
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+export function Contact() {
+  const [status, setStatus] = useState<Status>("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data = new FormData(e.currentTarget);
-    const subject = encodeURIComponent(`Inquiry from ${data.get("name")}`);
-    const body = encodeURIComponent(
-      `Name: ${data.get("name")}\nEmail: ${data.get("email")}\nCompany: ${data.get("company")}\nPhone: ${data.get("phone") || "-"}\nService: ${data.get("service")}\n\n${data.get("message")}`
-    );
-    window.location.href = `mailto:${contactInfo.email}?subject=${subject}&body=${body}`;
-    setSent(true);
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const payload = {
+      name: data.get("name"),
+      email: data.get("email"),
+      company: data.get("company"),
+      phone: data.get("phone"),
+      service: data.get("service"),
+      message: data.get("message"),
+    };
+
+    setStatus("submitting");
+    setErrorMessage("");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body.error || "Something went wrong. Please try again.");
+      }
+
+      setStatus("success");
+      form.reset();
+    } catch (error) {
+      setStatus("error");
+      setErrorMessage(error instanceof Error ? error.message : "Something went wrong. Please try again.");
+    }
   };
 
   return (
@@ -62,8 +90,9 @@ export function Contact() {
                     name={field.name}
                     type={field.type}
                     required={field.required}
+                    disabled={status === "submitting"}
                     placeholder=" "
-                    className="peer w-full rounded-xl border border-border bg-transparent px-4 py-3.5 text-text outline-none transition-colors focus:border-primary"
+                    className="peer w-full rounded-xl border border-border bg-transparent px-4 py-3.5 text-text outline-none transition-colors focus:border-primary disabled:opacity-60"
                   />
                   <label
                     htmlFor={field.name}
@@ -83,8 +112,9 @@ export function Contact() {
                   id="service"
                   name="service"
                   required
+                  disabled={status === "submitting"}
                   defaultValue=""
-                  className="w-full rounded-xl border border-border bg-transparent px-4 py-3.5 text-text outline-none transition-colors focus:border-primary"
+                  className="w-full rounded-xl border border-border bg-transparent px-4 py-3.5 text-text outline-none transition-colors focus:border-primary disabled:opacity-60"
                 >
                   <option value="" disabled>
                     Select a service
@@ -103,8 +133,9 @@ export function Contact() {
                   name="message"
                   required
                   rows={4}
+                  disabled={status === "submitting"}
                   placeholder=" "
-                  className="peer w-full resize-none rounded-xl border border-border bg-transparent px-4 py-3.5 text-text outline-none transition-colors focus:border-primary"
+                  className="peer w-full resize-none rounded-xl border border-border bg-transparent px-4 py-3.5 text-text outline-none transition-colors focus:border-primary disabled:opacity-60"
                 />
                 <label
                   htmlFor="message"
@@ -116,11 +147,18 @@ export function Contact() {
 
               <button
                 type="submit"
-                className="mt-2 rounded-full bg-gradient-to-r from-primary to-secondary px-7 py-3.5 font-semibold text-bg transition-transform hover:scale-[1.02]"
+                disabled={status === "submitting"}
+                className="mt-2 rounded-full bg-gradient-to-r from-primary to-secondary px-7 py-3.5 font-semibold text-bg transition-transform hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100"
               >
-                Send Enquiry
+                {status === "submitting" ? "Sending…" : "Send Enquiry"}
               </button>
-              {sent && <p className="text-sm text-primary">Opening your email client&hellip;</p>}
+
+              {status === "success" && (
+                <p className="text-sm text-primary">
+                  Message sent — check your inbox for a confirmation. We&rsquo;ll be in touch within one business day.
+                </p>
+              )}
+              {status === "error" && <p className="text-sm text-destructive">{errorMessage}</p>}
             </div>
           </form>
         </ScrollReveal>
