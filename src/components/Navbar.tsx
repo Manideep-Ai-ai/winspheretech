@@ -83,7 +83,7 @@ export function Navbar() {
       }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
-        <a href="#home" className="grid shrink-0 grid-cols-[auto_minmax(0,1fr)] items-center gap-2 sm:flex">
+        <a href="/" className="grid shrink-0 grid-cols-[auto_minmax(0,1fr)] items-center gap-2 sm:flex">
           <Image
             src="/logo.jpeg"
             alt="WinSphere Technologies"
