@@ -145,6 +145,15 @@ export function Contact() {
                     disabled={status === "submitting"}
                     placeholder=" "
                     aria-invalid={Boolean(fieldErrors[field.name])}
+                    {...(field.name === "phone"
+                      ? {
+                          inputMode: "numeric" as const,
+                          maxLength: 10,
+                          onInput: (e: FormEvent<HTMLInputElement>) => {
+                            e.currentTarget.value = e.currentTarget.value.replace(/\D/g, "");
+                          },
+                        }
+                      : {})}
                     className={`peer w-full rounded-xl border bg-transparent px-4 py-3.5 text-text outline-none transition-colors focus:border-primary disabled:opacity-60 ${
                       fieldErrors[field.name] ? "border-destructive" : "border-border"
                     }`}
