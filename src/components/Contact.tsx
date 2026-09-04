@@ -13,10 +13,38 @@ const fields = [
 ] as const;
 
 type Status = "idle" | "submitting" | "success" | "error";
+type FieldName = (typeof fields)[number]["name"] | "service" | "message";
+
+// Mirrors the backend's own checks (functions/api/contact.ts) so the user
+// sees the same rule client-side instead of only finding out after a
+// round trip.
+const EMAIL_PATTERN =
+  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
+
+function validate(payload: Record<string, FormDataEntryValue | null>): Partial<Record<FieldName, string>> {
+  const errors: Partial<Record<FieldName, string>> = {};
+  const name = String(payload.name ?? "").trim();
+  const email = String(payload.email ?? "").trim();
+  const company = String(payload.company ?? "").trim();
+  const phone = String(payload.phone ?? "").trim();
+  const service = String(payload.service ?? "").trim();
+  const message = String(payload.message ?? "").trim();
+
+  if (!name) errors.name = "Enter your name.";
+  if (!email) errors.email = "Enter your work email.";
+  else if (!EMAIL_PATTERN.test(email)) errors.email = "Enter a valid email address.";
+  if (!company) errors.company = "Enter your company name.";
+  if (phone && !/^[\d\s()+-]{7,20}$/.test(phone)) errors.phone = "Enter a valid phone number.";
+  if (!service) errors.service = "Select a service.";
+  if (!message) errors.message = "Tell us a bit about the project.";
+
+  return errors;
+}
 
 export function Contact() {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<Partial<Record<FieldName, string>>>({});
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -30,6 +58,14 @@ export function Contact() {
       service: data.get("service"),
       message: data.get("message"),
     };
+
+    const errors = validate(payload);
+    setFieldErrors(errors);
+    if (Object.keys(errors).length > 0) {
+      setStatus("error");
+      setErrorMessage("Please fix the highlighted fields.");
+      return;
+    }
 
     setStatus("submitting");
     setErrorMessage("");
@@ -47,6 +83,7 @@ export function Contact() {
       }
 
       setStatus("success");
+      setFieldErrors({});
       form.reset();
     } catch (error) {
       setStatus("error");
@@ -92,7 +129,10 @@ export function Contact() {
                     required={field.required}
                     disabled={status === "submitting"}
                     placeholder=" "
-                    className="peer w-full rounded-xl border border-border bg-transparent px-4 py-3.5 text-text outline-none transition-colors focus:border-primary disabled:opacity-60"
+                    aria-invalid={Boolean(fieldErrors[field.name])}
+                    className={`peer w-full rounded-xl border bg-transparent px-4 py-3.5 text-text outline-none transition-colors focus:border-primary disabled:opacity-60 ${
+                      fieldErrors[field.name] ? "border-destructive" : "border-border"
+                    }`}
                   />
                   <label
                     htmlFor={field.name}
@@ -101,6 +141,9 @@ export function Contact() {
                     {field.label}
                     {!field.required && <span className="text-muted"> (optional)</span>}
                   </label>
+                  {fieldErrors[field.name] && (
+                    <p className="mt-1.5 text-xs text-destructive">{fieldErrors[field.name]}</p>
+                  )}
                 </div>
               ))}
 
@@ -114,7 +157,10 @@ export function Contact() {
                   required
                   disabled={status === "submitting"}
                   defaultValue=""
-                  className="w-full rounded-xl border border-border bg-transparent px-4 py-3.5 text-text outline-none transition-colors focus:border-primary disabled:opacity-60"
+                  aria-invalid={Boolean(fieldErrors.service)}
+                  className={`w-full rounded-xl border bg-transparent px-4 py-3.5 text-text outline-none transition-colors focus:border-primary disabled:opacity-60 ${
+                    fieldErrors.service ? "border-destructive" : "border-border"
+                  }`}
                 >
                   <option value="" disabled>
                     Select a service
@@ -125,6 +171,7 @@ export function Contact() {
                     </option>
                   ))}
                 </select>
+                {fieldErrors.service && <p className="mt-1.5 text-xs text-destructive">{fieldErrors.service}</p>}
               </div>
 
               <div className="relative">
@@ -135,7 +182,10 @@ export function Contact() {
                   rows={4}
                   disabled={status === "submitting"}
                   placeholder=" "
-                  className="peer w-full resize-none rounded-xl border border-border bg-transparent px-4 py-3.5 text-text outline-none transition-colors focus:border-primary disabled:opacity-60"
+                  aria-invalid={Boolean(fieldErrors.message)}
+                  className={`peer w-full resize-none rounded-xl border bg-transparent px-4 py-3.5 text-text outline-none transition-colors focus:border-primary disabled:opacity-60 ${
+                    fieldErrors.message ? "border-destructive" : "border-border"
+                  }`}
                 />
                 <label
                   htmlFor="message"
@@ -143,6 +193,7 @@ export function Contact() {
                 >
                   Project Details
                 </label>
+                {fieldErrors.message && <p className="mt-1.5 text-xs text-destructive">{fieldErrors.message}</p>}
               </div>
 
               <button
