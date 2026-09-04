@@ -83,17 +83,18 @@ export function Navbar() {
       }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
-        <a href="/" className="grid shrink-0 grid-cols-[auto_minmax(0,1fr)] items-center gap-2 sm:flex">
+        <a href="/" className="shrink-0">
+          {/* The logo image already contains the wordmark, so no separate
+              text label — just swap which ink color renders depending on
+              what's behind the (transparent-until-scrolled) header. */}
           <Image
-            src="/logo.jpeg"
-            alt="WinSphere Technologies"
-            width={36}
-            height={36}
-            className="shrink-0 rounded-lg"
+            src={scrolled || open ? "/logo-full.png" : "/logo-full-light.png"}
+            alt="WinSphere Technologies Pvt Ltd"
+            width={2368}
+            height={1285}
+            priority
+            className="h-8 w-auto"
           />
-          <span className={`min-w-0 truncate font-heading text-lg ${open ? "text-text" : textColor}`}>
-            WinSphere
-          </span>
         </a>
 
         <ul className="hidden items-center gap-6 md:flex lg:gap-8">

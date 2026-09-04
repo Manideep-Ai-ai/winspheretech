@@ -18,16 +18,16 @@ export function Footer() {
       <div className="mx-auto max-w-7xl">
         <div className="auto-grid-md">
           <div className="max-w-sm">
-            <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-2 sm:flex">
-              <Image
-                src="/logo.jpeg"
-                alt="WinSphere Technologies"
-                width={32}
-                height={32}
-                className="shrink-0 rounded-lg"
-              />
-              <span className="min-w-0 truncate font-heading text-lg text-navy-text">WinSphere</span>
-            </div>
+            {/* logo-full-light.png bakes the wordmark in already (dark ink
+                swapped for white), so it reads on this section's permanent
+                navy background without a separate text label. */}
+            <Image
+              src="/logo-full-light.png"
+              alt="WinSphere Technologies Pvt Ltd"
+              width={2368}
+              height={1285}
+              className="h-8 w-auto"
+            />
             <p className="mt-4 text-sm text-navy-text-secondary">
               WinSphere helps businesses transform ideas into scalable
               digital solutions. We combine technology, design, and
@@ -35,12 +35,14 @@ export function Footer() {
               business value.
             </p>
             <div className="mt-6 flex gap-3">
-              {contactInfo.social.map((name) => {
-                const Icon = socialIcons[name as keyof typeof socialIcons];
+              {contactInfo.social.map(({ name, url }) => {
+                const Icon = socialIcons[name];
                 return (
                   <a
                     key={name}
-                    href="#"
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     aria-label={name}
                     className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-navy-border text-navy-text-secondary transition-colors hover:border-teal/40 hover:text-teal"
                   >

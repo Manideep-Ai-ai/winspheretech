@@ -146,7 +146,7 @@ export function confirmationEmailHtml(data: ContactSubmission): string {
     <table role="presentation" cellpadding="0" cellspacing="0">
       <tr>
         <td style="background:${TEAL};padding:13px 28px;">
-          <a href="mailto:winspheretechnologies@gmail.com" style="color:${NAVY};text-decoration:none;font-weight:700;font-size:14px;">
+          <a href="mailto:Madhusudan.Adepu@winspheretech.com" style="color:${NAVY};text-decoration:none;font-weight:700;font-size:14px;">
             Reply to this enquiry
           </a>
         </td>

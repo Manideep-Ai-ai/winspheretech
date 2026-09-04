@@ -20,7 +20,7 @@ interface RequestContext {
 }
 
 const DEFAULT_FROM = "WinSphere Technologies <onboarding@resend.dev>";
-const DEFAULT_TO = "winspheretechnologies@gmail.com";
+const DEFAULT_TO = "Madhusudan.Adepu@winspheretech.com";
 
 // One submission per IP per minute. This endpoint emails whatever address
 // the caller supplies (the visitor confirmation), which makes it a spam

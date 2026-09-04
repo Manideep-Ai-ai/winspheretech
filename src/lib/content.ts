@@ -227,9 +227,18 @@ export const partners: Partner[] = [
   { name: "Lotus", logo: "/partners/lotus.png" },
 ];
 
+export interface SocialLink {
+  name: "LinkedIn" | "Instagram" | "Facebook";
+  url: string;
+}
+
 export const contactInfo = {
-  email: "winspheretechnologies@gmail.com",
+  email: "Madhusudan.Adepu@winspheretech.com",
   phone: "+91-9494409785",
   location: "Begumpet, Hyderabad, Telangana",
-  social: ["LinkedIn", "Instagram", "Facebook"],
+  social: [
+    { name: "LinkedIn", url: "https://www.linkedin.com/company/winspheretech/" },
+    { name: "Instagram", url: "https://www.instagram.com/winspheretech/" },
+    { name: "Facebook", url: "https://www.facebook.com/winspheretech/" },
+  ] satisfies SocialLink[],
 };
