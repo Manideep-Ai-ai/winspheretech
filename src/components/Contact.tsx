@@ -21,6 +21,9 @@ type FieldName = (typeof fields)[number]["name"] | "service" | "message";
 const EMAIL_PATTERN =
   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
 
+const NAME_PATTERN = /^[a-zA-Z][a-zA-Z\s'.-]{1,99}$/;
+const MESSAGE_MAX_WORDS = 150;
+
 function validate(payload: Record<string, FormDataEntryValue | null>): Partial<Record<FieldName, string>> {
   const errors: Partial<Record<FieldName, string>> = {};
   const name = String(payload.name ?? "").trim();
@@ -31,12 +34,24 @@ function validate(payload: Record<string, FormDataEntryValue | null>): Partial<R
   const message = String(payload.message ?? "").trim();
 
   if (!name) errors.name = "Enter your name.";
+  else if (!NAME_PATTERN.test(name)) errors.name = "Enter a valid name (letters only, at least 2 characters).";
+
   if (!email) errors.email = "Enter your work email.";
   else if (!EMAIL_PATTERN.test(email)) errors.email = "Enter a valid email address.";
+
   if (!company) errors.company = "Enter your company name.";
-  if (phone && !/^[\d\s()+-]{7,20}$/.test(phone)) errors.phone = "Enter a valid phone number.";
+  else if (company.length < 2) errors.company = "Company name is too short.";
+
+  if (phone) {
+    const digits = phone.replace(/\D/g, "").replace(/^91/, "");
+    if (digits.length !== 10) errors.phone = "Enter a valid 10-digit phone number.";
+  }
+
   if (!service) errors.service = "Select a service.";
+
+  const wordCount = message ? message.split(/\s+/).length : 0;
   if (!message) errors.message = "Tell us a bit about the project.";
+  else if (wordCount > MESSAGE_MAX_WORDS) errors.message = `Keep it under ${MESSAGE_MAX_WORDS} words (currently ${wordCount}).`;
 
   return errors;
 }
@@ -180,6 +195,7 @@ export function Contact() {
                   name="message"
                   required
                   rows={4}
+                  maxLength={1000}
                   disabled={status === "submitting"}
                   placeholder=" "
                   aria-invalid={Boolean(fieldErrors.message)}
