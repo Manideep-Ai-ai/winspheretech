@@ -15,7 +15,11 @@ export function Industries() {
       <div className="mx-auto max-w-7xl">
         <ScrollReveal className="max-w-2xl">
           <p className="text-sm font-semibold uppercase tracking-widest text-primary">Industries</p>
-          <h2 className="mt-3 text-fluid-h2 font-extrabold">Domain depth that shows up in delivery</h2>
+          <h2 className="mt-3 text-fluid-h2 font-extrabold">Solutions for Different Business Needs</h2>
+          <p className="mt-4 text-lg text-text-secondary">
+            Digital marketing and technology solutions designed around the
+            challenges, customers, and growth goals of different businesses.
+          </p>
         </ScrollReveal>
 
         <div className="fluid-section-mt grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">

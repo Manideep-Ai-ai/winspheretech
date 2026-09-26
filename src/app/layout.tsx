@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
+import { contactInfo } from "@/lib/content";
 import "./globals.css";
 
 const inter = Inter({
@@ -15,9 +16,9 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 const siteUrl = "https://www.winspheretech.com";
-const title = "WinSphere Technologies | AI, Cloud, Software & IT Staffing";
+const title = "Digital Marketing & IT Solutions for Businesses | WinSphere Technologies";
 const description =
-  "WinSphere Technologies delivers AI, cloud, software development, data, digital transformation, and technology staffing solutions.";
+  "WinSphere Technologies provides digital marketing and IT solutions for businesses, including SEO, social media, AI, software, data, cloud and IT staffing.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -45,7 +46,7 @@ const organizationSchema = {
   name: "WinSphere Technologies",
   url: siteUrl,
   logo: `${siteUrl}/logo.jpeg`,
-  sameAs: [],
+  sameAs: contactInfo.social.map((s) => s.url),
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

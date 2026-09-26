@@ -97,10 +97,10 @@ export function Navbar() {
           />
         </a>
 
-        <ul className="hidden items-center gap-6 md:flex lg:gap-8">
+        <ul className="hidden items-center gap-8 md:flex lg:gap-10">
           {navLinks.map((link) => (
             <li key={link.href} className="group relative shrink-0">
-              <a href={link.href} className={`whitespace-nowrap text-sm ${textMuted} transition-colors ${textHover}`}>
+              <a href={link.href} className={`whitespace-nowrap text-base ${textMuted} transition-colors ${textHover}`}>
                 {link.label}
               </a>
               <span className="absolute -bottom-1 left-0 h-px w-0 bg-primary transition-all duration-300 group-hover:w-full" />
@@ -110,9 +110,9 @@ export function Navbar() {
 
         <a
           href="#contact"
-          className="hidden shrink-0 rounded-full bg-primary px-5 py-2 text-sm font-semibold text-navy-1 transition-transform hover:scale-105 md:inline-block"
+          className="hidden shrink-0 rounded-full bg-primary px-6 py-2.5 text-base font-semibold text-navy-1 transition-transform hover:scale-105 md:inline-block"
         >
-          Get a Quote
+          Get a Free Consultation
         </a>
 
         <button

@@ -37,11 +37,15 @@ export function Process() {
   }, []);
 
   return (
-    <section className="fluid-px fluid-py">
+    <section id="approach" className="fluid-px fluid-py scroll-mt-24">
       <div className="mx-auto max-w-7xl">
         <ScrollReveal className="max-w-2xl">
-          <p className="text-sm font-semibold uppercase tracking-widest text-primary">Process</p>
-          <h2 className="mt-3 text-fluid-h2 font-extrabold">From discovery to sustained support</h2>
+          <p className="text-sm font-semibold uppercase tracking-widest text-primary">Our Process</p>
+          <h2 className="mt-3 text-fluid-h2 font-extrabold">From Business Goal to Measurable Outcome</h2>
+          <p className="mt-4 text-lg text-text-secondary">
+            A simple, transparent approach designed to understand your goals,
+            build the right solution, and continuously improve performance.
+          </p>
         </ScrollReveal>
 
         {/* Desktop: horizontal timeline with a scroll-drawn connecting line. */}

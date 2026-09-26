@@ -9,7 +9,7 @@ export function TechStack() {
       <div className="mx-auto max-w-7xl fluid-px">
         <ScrollReveal className="max-w-2xl">
           <p className="text-sm font-semibold uppercase tracking-widest text-primary">Technology</p>
-          <h2 className="mt-3 text-fluid-h2 font-extrabold">Technology We Build With</h2>
+          <h2 className="mt-3 text-fluid-h2 font-extrabold">Technology &amp; Platforms We Work With</h2>
         </ScrollReveal>
 
         <div className="fluid-section-mt auto-grid-sm">

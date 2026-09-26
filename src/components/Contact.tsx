@@ -2,14 +2,14 @@
 
 import { useState, type FormEvent } from "react";
 import { Mail, MapPin, Phone } from "lucide-react";
-import { contactInfo, services } from "@/lib/content";
+import { contactInfo, enquiryOptions } from "@/lib/content";
 import { ScrollReveal } from "@/components/ScrollReveal";
 
 const fields = [
   { name: "name", label: "Full Name", type: "text", required: true },
-  { name: "email", label: "Work Email", type: "email", required: true },
-  { name: "company", label: "Company", type: "text", required: true },
-  { name: "phone", label: "Phone", type: "tel", required: false },
+  { name: "email", label: "Business Email", type: "email", required: true },
+  { name: "company", label: "Company Name", type: "text", required: true },
+  { name: "phone", label: "Phone / WhatsApp", type: "tel", required: false },
 ] as const;
 
 type Status = "idle" | "submitting" | "success" | "error";
@@ -112,11 +112,13 @@ export function Contact() {
         <ScrollReveal>
           <p className="text-sm font-semibold uppercase tracking-widest text-primary">Contact</p>
           <h2 className="mt-3 text-fluid-h2 font-extrabold leading-tight">
-            Let&rsquo;s build what&rsquo;s next.
+            Let&rsquo;s Talk About Your Business Goals
           </h2>
           <p className="mt-6 max-w-md text-text-secondary">
-            Tell us what you&rsquo;re trying to build, improve, or scale. Our
-            team will get back to you within one business day.
+            Tell us what you&rsquo;re looking to improve. Whether you need
+            better digital visibility, qualified leads, software, AI, data,
+            cloud, or technology talent, we&rsquo;ll help you identify the
+            right next step.
           </p>
 
           <div className="mt-10 flex flex-col gap-5">
@@ -163,7 +165,7 @@ export function Contact() {
                     className="pointer-events-none absolute left-4 top-3.5 text-text-secondary transition-all peer-focus:-top-2.5 peer-focus:left-3 peer-focus:text-xs peer-focus:text-primary peer-focus:bg-bg peer-focus:px-1 peer-[:not(:placeholder-shown)]:-top-2.5 peer-[:not(:placeholder-shown)]:left-3 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:bg-bg peer-[:not(:placeholder-shown)]:px-1"
                   >
                     {field.label}
-                    {!field.required && <span className="text-muted"> (optional)</span>}
+                    {field.required ? "*" : <span className="text-muted"> (optional)</span>}
                   </label>
                   {fieldErrors[field.name] && (
                     <p className="mt-1.5 text-xs text-destructive">{fieldErrors[field.name]}</p>
@@ -173,7 +175,7 @@ export function Contact() {
 
               <div>
                 <label htmlFor="service" className="mb-1.5 block text-xs font-semibold text-text-secondary">
-                  Service Required
+                  What do you need help with?*
                 </label>
                 <select
                   id="service"
@@ -187,18 +189,21 @@ export function Contact() {
                   }`}
                 >
                   <option value="" disabled>
-                    Select a service
+                    Select an option
                   </option>
-                  {services.map((service) => (
-                    <option key={service.title} value={service.title}>
-                      {service.title}
+                  {enquiryOptions.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
                     </option>
                   ))}
                 </select>
                 {fieldErrors.service && <p className="mt-1.5 text-xs text-destructive">{fieldErrors.service}</p>}
               </div>
 
-              <div className="relative">
+              <div>
+                <label htmlFor="message" className="mb-1.5 block text-xs font-semibold text-text-secondary">
+                  Tell us about your requirement*
+                </label>
                 <textarea
                   id="message"
                   name="message"
@@ -206,18 +211,12 @@ export function Contact() {
                   rows={4}
                   maxLength={1000}
                   disabled={status === "submitting"}
-                  placeholder=" "
+                  placeholder="Briefly tell us about your business, challenge, project, or growth goal."
                   aria-invalid={Boolean(fieldErrors.message)}
-                  className={`peer w-full resize-none rounded-xl border bg-transparent px-4 py-3.5 text-text outline-none transition-colors focus:border-primary disabled:opacity-60 ${
+                  className={`w-full resize-none rounded-xl border bg-transparent px-4 py-3.5 text-text outline-none transition-colors focus:border-primary disabled:opacity-60 ${
                     fieldErrors.message ? "border-destructive" : "border-border"
                   }`}
                 />
-                <label
-                  htmlFor="message"
-                  className="pointer-events-none absolute left-4 top-3.5 text-text-secondary transition-all peer-focus:-top-2.5 peer-focus:left-3 peer-focus:text-xs peer-focus:text-primary peer-focus:bg-bg peer-focus:px-1 peer-[:not(:placeholder-shown)]:-top-2.5 peer-[:not(:placeholder-shown)]:left-3 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:bg-bg peer-[:not(:placeholder-shown)]:px-1"
-                >
-                  Project Details
-                </label>
                 {fieldErrors.message && <p className="mt-1.5 text-xs text-destructive">{fieldErrors.message}</p>}
               </div>
 
@@ -226,12 +225,14 @@ export function Contact() {
                 disabled={status === "submitting"}
                 className="mt-2 rounded-full bg-gradient-to-r from-primary to-secondary px-7 py-3.5 font-semibold text-bg transition-transform hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100"
               >
-                {status === "submitting" ? "Sending…" : "Send Enquiry"}
+                {status === "submitting" ? "Sending…" : "Request a Consultation"}
               </button>
 
               {status === "success" && (
                 <p className="text-sm text-primary">
-                  Message sent — check your inbox for a confirmation. We&rsquo;ll be in touch within one business day.
+                  Thank you for contacting WinSphere Technologies. We&rsquo;ve
+                  received your enquiry and our team will get back to you
+                  shortly.
                 </p>
               )}
               {status === "error" && <p className="text-sm text-destructive">{errorMessage}</p>}

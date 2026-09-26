@@ -11,9 +11,11 @@ const looped = Array.from({ length: REPEATS }, () => partners).flat();
 export function TrustedPartners() {
   return (
     <section className="fluid-px py-16">
-      <ScrollReveal className="mx-auto max-w-7xl">
-        <p className="text-center text-sm font-semibold uppercase tracking-widest text-muted">
-          Trusted Partners &amp; Clients
+      <ScrollReveal className="mx-auto max-w-7xl text-center">
+        <p className="text-sm font-semibold uppercase tracking-widest text-muted">Trusted Partners &amp; Clients</p>
+        <h2 className="mt-3 text-fluid-h2 font-extrabold">Trusted by Businesses &amp; Growing Teams</h2>
+        <p className="mx-auto mt-4 max-w-2xl text-text-secondary">
+          We work with businesses and teams to support their digital growth and technology requirements.
         </p>
 
         <div className="edge-fade-x relative mt-10 flex overflow-hidden">

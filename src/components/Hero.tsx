@@ -7,7 +7,7 @@ import { ArrowRight } from "lucide-react";
 
 const Globe = dynamic(() => import("@/components/ui/globe").then((m) => m.Globe), { ssr: false });
 
-const lines = ["Technology.", "Talent.", "Digital Growth."];
+const lines = ["Digital Marketing &", "IT Solutions That", "Help Businesses Grow."];
 
 export function Hero() {
   const heroRef = useRef<HTMLElement>(null);
@@ -41,7 +41,7 @@ export function Hero() {
           transition={{ duration: 0.5 }}
           className="text-xs font-semibold uppercase tracking-[0.25em] text-teal"
         >
-          Technology &middot; Talent &middot; Digital Transformation
+          Digital Marketing &middot; IT Solutions &middot; Business Growth
         </motion.p>
 
         <h1 className="mt-5 text-fluid-h1 leading-[1.05] tracking-tight">
@@ -64,8 +64,10 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.6 }}
           className="mx-auto mt-6 max-w-xl text-lg text-navy-text-secondary"
         >
-          WinSphere Technologies helps businesses accelerate growth through AI,
-          cloud, software engineering, data, and technology talent.
+          WinSphere Technologies helps businesses strengthen their digital
+          presence, generate qualified opportunities, and solve technology
+          challenges through digital marketing, AI, software, data, cloud,
+          and IT solutions.
         </motion.p>
 
         <motion.div
@@ -78,14 +80,14 @@ export function Hero() {
             href="#contact"
             className="group inline-flex items-center gap-2 rounded-full bg-teal px-7 py-3.5 font-semibold text-navy-1 shadow-[0_10px_28px_-10px_rgba(25,199,163,0.6)] transition-all hover:-translate-y-0.5 hover:shadow-[0_16px_36px_-10px_rgba(25,199,163,0.7)]"
           >
-            Talk to Our Experts
+            Get a Free Consultation
             <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
           </a>
           <a
             href="#services"
             className="rounded-full border border-navy-border px-7 py-3.5 font-semibold text-navy-text transition-all hover:border-teal/50 hover:bg-white/5"
           >
-            Explore Services
+            Explore Our Services
           </a>
         </motion.div>
       </div>

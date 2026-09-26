@@ -7,15 +7,17 @@ import { ScrollReveal } from "@/components/ScrollReveal";
 
 export function WhyChooseUs() {
   return (
-    <section id="why-us" className="bg-navy-1 fluid-px fluid-py text-navy-text">
+    <section id="about" className="bg-navy-1 fluid-px fluid-py text-navy-text">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-x-16 fluid-gap-y lg:grid-cols-2">
         <ScrollReveal>
-          <p className="text-sm font-semibold uppercase tracking-widest text-teal">Why Choose WinSphere</p>
-          <h2 className="mt-3 text-fluid-h2 font-extrabold leading-tight">Your Success Is Our Mission</h2>
+          <p className="text-sm font-semibold uppercase tracking-widest text-teal">Our Approach</p>
+          <h2 className="mt-3 text-fluid-h2 font-extrabold leading-tight">Your Business Growth Is Our Mission</h2>
           <p className="mt-6 max-w-md text-lg text-navy-text-secondary">
-            We operate as an extension of your team, not a vendor. Every
-            engagement is scoped, staffed with senior practitioners, and
-            measured against the business result it was built to move.
+            Your business needs more than technology or marketing in
+            isolation. WinSphere Technologies brings digital growth and
+            technology capabilities together to help businesses improve
+            visibility, generate opportunities, modernize operations, and
+            build for sustainable growth.
           </p>
           <a
             href="#contact"
