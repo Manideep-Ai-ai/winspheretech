@@ -47,6 +47,20 @@ const organizationSchema = {
   url: siteUrl,
   logo: `${siteUrl}/logo.jpeg`,
   sameAs: contactInfo.social.map((s) => s.url),
+  contactPoint: {
+    "@type": "ContactPoint",
+    telephone: contactInfo.phone,
+    contactType: "customer service",
+    areaServed: "IN",
+    availableLanguage: ["English"],
+  },
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "WinSphere Technologies",
+  url: siteUrl,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -56,6 +70,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
       </head>
       <body className="flex flex-col bg-bg text-text">
